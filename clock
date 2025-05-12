@@ -1,0 +1,553 @@
+import { useState, useEffect, useRef } from 'react'
+import { Clock, AlarmClock, Timer, Plus, Minus, Check, X, Bell, Settings } from 'lucide-react'
+import { Button } from "/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "/components/ui/card"
+import { Input } from "/components/ui/input"
+import { Label } from "/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "/components/ui/select"
+
+type TimeZone = {
+  id: string
+  name: string
+  offset: number
+  hasDST: boolean
+  country: string
+  continent: string
+}
+
+type Alarm = {
+  id: string
+  time: string
+  active: boolean
+  snooze: number
+  challenge: 'none' | 'math' | 'shake'
+}
+
+type Lap = {
+  id: number
+  time: string
+  totalTime: string
+}
+
+export default function SophisticatedClock() {
+  // Enhanced list of time zones for major countries with more details
+  const commonTimeZones: TimeZone[] = [
+    { id: 'local', name: 'Local', offset: new Date().getTimezoneOffset() / -60, hasDST: false, country: 'Your Location', continent: 'Local' },
+    { id: 'utc', name: 'UTC', offset: 0, hasDST: false, country: 'International', continent: 'Global' },
+    
+    // Americas
+    { id: 'new-york', name: 'New York', offset: -5, hasDST: true, country: 'USA', continent: 'Americas' },
+    { id: 'los-angeles', name: 'Los Angeles', offset: -8, hasDST: true, country: 'USA', continent: 'Americas' },
+    { id: 'chicago', name: 'Chicago', offset: -6, hasDST: true, country: 'USA', continent: 'Americas' },
+    { id: 'toronto', name: 'Toronto', offset: -5, hasDST: true, country: 'Canada', continent: 'Americas' },
+    { id: 'mexico-city', name: 'Mexico City', offset: -6, hasDST: false, country: 'Mexico', continent: 'Americas' },
+    { id: 'sao-paulo', name: 'São Paulo', offset: -3, hasDST: false, country: 'Brazil', continent: 'Americas' },
+    
+    // Europe
+    { id: 'london', name: 'London', offset: 0, hasDST: true, country: 'UK', continent: 'Europe' },
+    { id: 'paris', name: 'Paris', offset: 1, hasDST: true, country: 'France', continent: 'Europe' },
+    { id: 'berlin', name: 'Berlin', offset: 1, hasDST: true, country: 'Germany', continent: 'Europe' },
+    { id: 'rome', name: 'Rome', offset: 1, hasDST: true, country: 'Italy', continent: 'Europe' },
+    { id: 'madrid', name: 'Madrid', offset: 1, hasDST: true, country: 'Spain', continent: 'Europe' },
+    { id: 'moscow', name: 'Moscow', offset: 3, hasDST: false, country: 'Russia', continent: 'Europe' },
+    
+    // Asia
+    { id: 'delhi', name: 'Delhi', offset: 5.5, hasDST: false, country: 'India', continent: 'Asia' },
+    { id: 'beijing', name: 'Beijing', offset: 8, hasDST: false, country: 'China', continent: 'Asia' },
+    { id: 'tokyo', name: 'Tokyo', offset: 9, hasDST: false, country: 'Japan', continent: 'Asia' },
+    { id: 'seoul', name: 'Seoul', offset: 9, hasDST: false, country: 'South Korea', continent: 'Asia' },
+    { id: 'jakarta', name: 'Jakarta', offset: 7, hasDST: false, country: 'Indonesia', continent: 'Asia' },
+    { id: 'bangkok', name: 'Bangkok', offset: 7, hasDST: false, country: 'Thailand', continent: 'Asia' },
+    { id: 'dubai', name: 'Dubai', offset: 4, hasDST: false, country: 'UAE', continent: 'Asia' },
+    { id: 'riyadh', name: 'Riyadh', offset: 3, hasDST: false, country: 'Saudi Arabia', continent: 'Asia' },
+    { id: 'tel-aviv', name: 'Tel Aviv', offset: 2, hasDST: true, country: 'Israel', continent: 'Asia' },
+    
+    // Africa
+    { id: 'cairo', name: 'Cairo', offset: 2, hasDST: false, country: 'Egypt', continent: 'Africa' },
+    { id: 'johannesburg', name: 'Johannesburg', offset: 2, hasDST: false, country: 'South Africa', continent: 'Africa' },
+    { id: 'lagos', name: 'Lagos', offset: 1, hasDST: false, country: 'Nigeria', continent: 'Africa' },
+    { id: 'nairobi', name: 'Nairobi', offset: 3, hasDST: false, country: 'Kenya', continent: 'Africa' },
+    
+    // Oceania
+    { id: 'sydney', name: 'Sydney', offset: 10, hasDST: true, country: 'Australia', continent: 'Oceania' },
+    { id: 'melbourne', name: 'Melbourne', offset: 10, hasDST: true, country: 'Australia', continent: 'Oceania' },
+    { id: 'auckland', name: 'Auckland', offset: 12, hasDST: true, country: 'New Zealand', continent: 'Oceania' },
+    { id: 'honolulu', name: 'Honolulu', offset: -10, hasDST: false, country: 'USA', continent: 'Oceania' }
+  ]
+
+  // World Clock State
+  const [timeZones, setTimeZones] = useState<TimeZone[]>([
+    commonTimeZones.find(tz => tz.id === 'local')!,
+    commonTimeZones.find(tz => tz.id === 'utc')!,
+    commonTimeZones.find(tz => tz.id === 'new-york')!,
+  ])
+  const [currentTimes, setCurrentTimes] = useState<Record<string, { time: string; date: string }>>({})
+  const [selectedTimeZone, setSelectedTimeZone] = useState('local')
+  
+  // Alarm State
+  const [alarms, setAlarms] = useState<Alarm[]>([])
+  const [newAlarmTime, setNewAlarmTime] = useState('')
+  const [newAlarmSnooze, setNewAlarmSnooze] = useState(5)
+  const [newAlarmChallenge, setNewAlarmChallenge] = useState<'none' | 'math' | 'shake'>('none')
+  const [activeAlarm, setActiveAlarm] = useState<Alarm | null>(null)
+  const [mathProblem, setMathProblem] = useState({ a: 0, b: 0, answer: '' })
+  
+  // Stopwatch State
+  const [stopwatchRunning, setStopwatchRunning] = useState(false)
+  const [stopwatchTime, setStopwatchTime] = useState(0)
+  const [laps, setLaps] = useState<Lap[]>([])
+  const stopwatchInterval = useRef<NodeJS.Timeout | null>(null)
+  
+  // UI State
+  const [activeTab, setActiveTab] = useState<'world' | 'alarm' | 'stopwatch'>('world')
+  const [showAddAlarm, setShowAddAlarm] = useState(false)
+  const [showAddTimeZone, setShowAddTimeZone] = useState(false)
+  const [newTimeZone, setNewTimeZone] = useState('utc')
+
+  // Update all displayed times with exact time and date
+  useEffect(() => {
+    const updateTimes = () => {
+      const now = new Date()
+      const newTimes: Record<string, { time: string; date: string }> = {}
+      
+      timeZones.forEach(zone => {
+        const offset = zone.offset * 60 * 60 * 1000
+        const zoneTime = new Date(now.getTime() + offset)
+        
+        newTimes[zone.id] = {
+          time: zoneTime.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true,
+            timeZone: 'UTC' // Using UTC as base since we're manually calculating offsets
+          }),
+          date: zoneTime.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            timeZone: 'UTC'
+          })
+        }
+      })
+      
+      setCurrentTimes(newTimes)
+    }
+    
+    updateTimes()
+    const interval = setInterval(updateTimes, 1000)
+    return () => clearInterval(interval)
+  }, [timeZones])
+
+  // Check alarms
+  useEffect(() => {
+    const checkAlarms = () => {
+      const now = new Date()
+      const currentTime = now.toTimeString().substring(0, 5)
+      
+      alarms.forEach(alarm => {
+        if (alarm.active && alarm.time === currentTime && !activeAlarm) {
+          setActiveAlarm(alarm)
+          if (alarm.challenge === 'math') {
+            const a = Math.floor(Math.random() * 10) + 1
+            const b = Math.floor(Math.random() * 10) + 1
+            setMathProblem({ a, b, answer: '' })
+          }
+        }
+      })
+    }
+    
+    const interval = setInterval(checkAlarms, 1000)
+    return () => clearInterval(interval)
+  }, [alarms, activeAlarm])
+
+  // Stopwatch logic
+  useEffect(() => {
+    if (stopwatchRunning) {
+      stopwatchInterval.current = setInterval(() => {
+        setStopwatchTime(prev => prev + 10)
+      }, 10)
+    } else if (stopwatchInterval.current) {
+      clearInterval(stopwatchInterval.current)
+    }
+    
+    return () => {
+      if (stopwatchInterval.current) {
+        clearInterval(stopwatchInterval.current)
+      }
+    }
+  }, [stopwatchRunning])
+
+  // Format time for display
+  const formatTime = (ms: number) => {
+    const date = new Date(ms)
+    return date.toISOString().substr(11, 12)
+  }
+
+  // World Clock Functions
+  const addTimeZone = () => {
+    const zoneToAdd = commonTimeZones.find(z => z.id === newTimeZone)
+    if (zoneToAdd && !timeZones.some(z => z.id === zoneToAdd.id)) {
+      setTimeZones([...timeZones, zoneToAdd])
+    }
+    setShowAddTimeZone(false)
+  }
+
+  const removeTimeZone = (id: string) => {
+    setTimeZones(timeZones.filter(zone => zone.id !== id))
+  }
+
+  // Alarm Functions
+  const addAlarm = () => {
+    if (newAlarmTime) {
+      const newAlarm: Alarm = {
+        id: Date.now().toString(),
+        time: newAlarmTime,
+        active: true,
+        snooze: newAlarmSnooze,
+        challenge: newAlarmChallenge
+      }
+      setAlarms([...alarms, newAlarm])
+      setNewAlarmTime('')
+      setShowAddAlarm(false)
+    }
+  }
+
+  const toggleAlarm = (id: string) => {
+    setAlarms(alarms.map(alarm => 
+      alarm.id === id ? { ...alarm, active: !alarm.active } : alarm
+    ))
+  }
+
+  const deleteAlarm = (id: string) => {
+    setAlarms(alarms.filter(alarm => alarm.id !== id))
+  }
+
+  const dismissAlarm = () => {
+    setActiveAlarm(null)
+  }
+
+  const snoozeAlarm = () => {
+    if (activeAlarm) {
+      setTimeout(() => {
+        setActiveAlarm(activeAlarm)
+      }, activeAlarm.snooze * 60 * 1000)
+      setActiveAlarm(null)
+    }
+  }
+
+  // Stopwatch Functions
+  const startStopwatch = () => {
+    setStopwatchRunning(true)
+  }
+
+  const stopStopwatch = () => {
+    setStopwatchRunning(false)
+  }
+
+  const resetStopwatch = () => {
+    setStopwatchRunning(false)
+    setStopwatchTime(0)
+    setLaps([])
+  }
+
+  const addLap = () => {
+    const newLap: Lap = {
+      id: laps.length + 1,
+      time: formatTime(stopwatchTime - (laps.length > 0 ? parseInt(laps[laps.length - 1].totalTime.replace(/:/g, '')) : 0)),
+      totalTime: formatTime(stopwatchTime)
+    }
+    setLaps([...laps, newLap])
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-4">
+      <Card className="max-w-2xl mx-auto">
+        <CardHeader className="border-b">
+          <div className="flex justify-between items-center">
+            <CardTitle className="text-2xl">Sophisticated Clock</CardTitle>
+            <div className="flex space-x-2">
+              <Button 
+                variant={activeTab === 'world' ? 'default' : 'outline'} 
+                size="sm" 
+                onClick={() => setActiveTab('world')}
+              >
+                <Clock className="w-4 h-4 mr-2" /> World
+              </Button>
+              <Button 
+                variant={activeTab === 'alarm' ? 'default' : 'outline'} 
+                size="sm" 
+                onClick={() => setActiveTab('alarm')}
+              >
+                <AlarmClock className="w-4 h-4 mr-2" /> Alarm
+              </Button>
+              <Button 
+                variant={activeTab === 'stopwatch' ? 'default' : 'outline'} 
+                size="sm" 
+                onClick={() => setActiveTab('stopwatch')}
+              >
+                <Timer className="w-4 h-4 mr-2" /> Stopwatch
+              </Button>
+            </div>
+          </div>
+        </CardHeader>
+
+        <CardContent className="p-6">
+          {/* World Clock Tab */}
+          {activeTab === 'world' && (
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <h3 className="text-lg font-semibold">World Clock</h3>
+                <Button size="sm" onClick={() => setShowAddTimeZone(true)}>
+                  <Plus className="w-4 h-4 mr-2" /> Add Time Zone
+                </Button>
+              </div>
+
+              {showAddTimeZone && (
+                <div className="flex items-center space-x-2 p-4 bg-gray-100 rounded-lg">
+                  <Select value={newTimeZone} onValueChange={setNewTimeZone}>
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Select time zone" />
+                    </SelectTrigger>
+                    <SelectContent className="max-h-60 overflow-y-auto">
+                      {commonTimeZones
+                        .filter(zone => !timeZones.some(tz => tz.id === zone.id))
+                        .map(zone => (
+                          <SelectItem key={zone.id} value={zone.id}>
+                            {zone.name}, {zone.country} (UTC{zone.offset >= 0 ? '+' : ''}{zone.offset})
+                            {zone.hasDST && ' *DST'}
+                          </SelectItem>
+                        ))}
+                    </SelectContent>
+                  </Select>
+                  <Button size="sm" onClick={addTimeZone}>
+                    <Check className="w-4 h-4" />
+                  </Button>
+                  <Button variant="outline" size="sm" onClick={() => setShowAddTimeZone(false)}>
+                    <X className="w-4 h-4" />
+                  </Button>
+                </div>
+              )}
+
+              <div className="space-y-4 max-h-[400px] overflow-y-auto">
+                {timeZones.map(zone => {
+                  const currentTime = currentTimes[zone.id]
+                  return (
+                    <div key={zone.id} className="p-4 bg-white rounded-lg shadow-sm">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <div className="font-medium text-lg">
+                            {zone.name}, {zone.country}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {zone.continent} • UTC{zone.offset >= 0 ? '+' : ''}{zone.offset}
+                            {zone.hasDST && <span className="ml-1 text-yellow-600">• DST</span>}
+                          </div>
+                        </div>
+                        {zone.id !== 'local' && (
+                          <Button variant="ghost" size="sm" onClick={() => removeTimeZone(zone.id)}>
+                            <X className="w-4 h-4" />
+                          </Button>
+                        )}
+                      </div>
+                      
+                      {currentTime && (
+                        <div className="mt-3">
+                          <div className="text-3xl font-mono font-bold">
+                            {currentTime.time}
+                          </div>
+                          <div className="text-sm text-gray-600 mt-1">
+                            {currentTime.date}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Alarm Tab */}
+          {activeTab === 'alarm' && (
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <h3 className="text-lg font-semibold">Alarms</h3>
+                <Button size="sm" onClick={() => setShowAddAlarm(true)}>
+                  <Plus className="w-4 h-4 mr-2" /> Add Alarm
+                </Button>
+              </div>
+
+              {showAddAlarm && (
+                <div className="p-4 bg-gray-100 rounded-lg space-y-3">
+                  <div className="flex items-center space-x-2">
+                    <Label htmlFor="alarm-time">Time</Label>
+                    <Input 
+                      id="alarm-time" 
+                      type="time" 
+                      value={newAlarmTime}
+                      onChange={(e) => setNewAlarmTime(e.target.value)}
+                      className="w-24"
+                    />
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Label htmlFor="alarm-snooze">Snooze (min)</Label>
+                    <Input 
+                      id="alarm-snooze" 
+                      type="number" 
+                      min="1" 
+                      max="30" 
+                      value={newAlarmSnooze}
+                      onChange={(e) => setNewAlarmSnooze(Number(e.target.value))}
+                      className="w-16"
+                    />
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Label htmlFor="alarm-challenge">Challenge</Label>
+                    <Select 
+                      value={newAlarmChallenge} 
+                      onValueChange={(val: 'none' | 'math' | 'shake') => setNewAlarmChallenge(val)}
+                    >
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Select challenge" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">None</SelectItem>
+                        <SelectItem value="math">Math Problem</SelectItem>
+                        <SelectItem value="shake">Shake Phone</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="flex justify-end space-x-2">
+                    <Button variant="outline" size="sm" onClick={() => setShowAddAlarm(false)}>
+                      Cancel
+                    </Button>
+                    <Button size="sm" onClick={() => addAlarm()}>
+                      Add Alarm
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              <div className="space-y-2">
+                {alarms.length === 0 ? (
+                  <div className="text-center py-8 text-gray-500">
+                    No alarms set. Add one to get started!
+                  </div>
+                ) : (
+                  alarms.map(alarm => (
+                    <div key={alarm.id} className="flex justify-between items-center p-3 bg-white rounded-lg shadow-sm">
+                      <div className="flex items-center space-x-3">
+                        <Button 
+                          variant={alarm.active ? 'default' : 'outline'} 
+                          size="sm" 
+                          onClick={() => toggleAlarm(alarm.id)}
+                        >
+                          <Bell className="w-4 h-4" />
+                        </Button>
+                        <div>
+                          <div className="font-medium">{alarm.time}</div>
+                          <div className="text-xs text-gray-500">
+                            Snooze: {alarm.snooze} min • Challenge: {alarm.challenge}
+                          </div>
+                        </div>
+                      </div>
+                      <Button variant="ghost" size="sm" onClick={() => deleteAlarm(alarm.id)}>
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Stopwatch Tab */}
+          {activeTab === 'stopwatch' && (
+            <div className="space-y-6">
+              <div className="text-center">
+                <div className="text-4xl font-mono tracking-wider">
+                  {formatTime(stopwatchTime).substring(0, 11)}
+                </div>
+                <div className="flex justify-center space-x-3 mt-4">
+                  {!stopwatchRunning ? (
+                    <Button onClick={startStopwatch}>Start</Button>
+                  ) : (
+                    <Button variant="destructive" onClick={stopStopwatch}>Stop</Button>
+                  )}
+                  <Button variant="outline" onClick={addLap} disabled={!stopwatchRunning}>
+                    Lap
+                  </Button>
+                  <Button variant="outline" onClick={resetStopwatch}>
+                    Reset
+                  </Button>
+                </div>
+              </div>
+
+              {laps.length > 0 && (
+                <div className="border-t pt-4">
+                  <h3 className="font-medium mb-2">Laps</h3>
+                  <div className="space-y-2 max-h-64 overflow-y-auto">
+                    {laps.map(lap => (
+                      <div key={lap.id} className="flex justify-between p-2 bg-white rounded">
+                        <div className="font-medium">Lap {lap.id}</div>
+                        <div className="font-mono">{lap.time}</div>
+                        <div className="text-gray-500 font-mono">{lap.totalTime}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Active Alarm Modal */}
+      {activeAlarm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <Card className="w-full max-w-md">
+            <CardHeader>
+              <CardTitle className="text-2xl text-center">Alarm!</CardTitle>
+              <CardDescription className="text-center text-xl">
+                {activeAlarm.time}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {activeAlarm.challenge === 'math' && (
+                <div className="text-center">
+                  <p className="mb-2">Solve this math problem to dismiss:</p>
+                  <div className="text-xl font-mono mb-2">
+                    {mathProblem.a} + {mathProblem.b} = ?
+                  </div>
+                  <Input 
+                    type="number" 
+                    value={mathProblem.answer}
+                    onChange={(e) => setMathProblem({...mathProblem, answer: e.target.value})}
+                    className="text-center w-24 mx-auto"
+                  />
+                </div>
+              )}
+              {activeAlarm.challenge === 'none' && (
+                <p className="text-center">Your alarm is going off!</p>
+              )}
+              <div className="flex justify-center space-x-4">
+                <Button variant="outline" onClick={snoozeAlarm}>
+                  Snooze ({activeAlarm.snooze} min)
+                </Button>
+                <Button 
+                  onClick={dismissAlarm}
+                  disabled={activeAlarm.challenge === 'math' && 
+                    parseInt(mathProblem.answer) !== mathProblem.a + mathProblem.b}
+                >
+                  Dismiss
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+    </div>
+  )
+}
