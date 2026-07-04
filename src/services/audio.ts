@@ -6,6 +6,28 @@ let alarmSound: Audio.Sound | null = null
 let timerSound: Audio.Sound | null = null
 let isPlaying = false
 
+function loadSoundSource(key: string): any {
+  try {
+    const map: Record<string, any> = {
+      default: require('../../assets/sounds/alarm-default.mp3'),
+      gentle: require('../../assets/sounds/alarm-gentle.mp3'),
+      marimba: require('../../assets/sounds/alarm-marimba.mp3'),
+      bell: require('../../assets/sounds/alarm-bell.mp3'),
+    }
+    return map[key] || map.default
+  } catch {
+    return null
+  }
+}
+
+function loadTimerSoundSource(): any {
+  try {
+    return require('../../assets/sounds/timer-complete.mp3')
+  } catch {
+    return null
+  }
+}
+
 export async function configureAudio() {
   try {
     await Audio.setAudioModeAsync({
@@ -24,18 +46,15 @@ export async function playAlarmSound(soundKey: string = 'default'): Promise<void
   isPlaying = true
 
   try {
+    const source = loadSoundSource(soundKey)
+    if (!source) {
+      console.warn('Alarm sound file not found')
+      return
+    }
     if (alarmSound) {
       await alarmSound.unloadAsync()
     }
     alarmSound = new Audio.Sound()
-    const soundMap: Record<string, any> = {
-      default: require('../../assets/sounds/alarm-default.mp3'),
-      gentle: require('../../assets/sounds/alarm-gentle.mp3'),
-      marimba: require('../../assets/sounds/alarm-marimba.mp3'),
-      bell: require('../../assets/sounds/alarm-bell.mp3'),
-    }
-    const source = soundMap[soundKey] || soundMap.default
-
     await alarmSound.loadAsync(source, {
       shouldPlay: true,
       isLooping: true,
@@ -62,14 +81,20 @@ export async function stopAlarmSound(): Promise<void> {
 
 export async function playTimerCompleteSound(): Promise<void> {
   try {
+    const source = loadTimerSoundSource()
+    if (!source) {
+      console.warn('Timer sound file not found')
+      return
+    }
     if (timerSound) {
       await timerSound.unloadAsync()
     }
     timerSound = new Audio.Sound()
-    await timerSound.loadAsync(
-      require('../../assets/sounds/timer-complete.mp3'),
-      { shouldPlay: true, isLooping: false, volume: 1.0 },
-    )
+    await timerSound.loadAsync(source, {
+      shouldPlay: true,
+      isLooping: false,
+      volume: 1.0,
+    })
     await timerSound.playAsync()
   } catch (e) {
     console.warn('Timer sound error:', e)
