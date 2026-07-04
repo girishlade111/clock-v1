@@ -4,8 +4,6 @@ SS face with configurable swping second hand
 - —
   Persistent to device storage, OS-scheduled notifications survive app kill
 
-## Tech Stack
-
 - Expo ps:ve-reanimated](https://docs.swmansion.com/react-native-reanimated/) — 60fps animations
 - [@shopifnative-skia](https://shopify.github.io/react-native-skia/) — analog clock and circular progress
 - [react-native-mmkv](https://github.com/mrousavy/react-native-mmkv) — encrypted local storage
