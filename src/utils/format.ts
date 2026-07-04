@@ -38,6 +38,14 @@ export function formatMilliseconds(ms: number): string {
   return `${pad(minutes, 2)}:${pad(seconds, 2)}.${pad(millis, 2)}`
 }
 
+export function getFormattedDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+
 export function formatCountdown(ms: number): string {
   if (ms <= 0) return '00:00:00'
   const totalSec = Math.ceil(ms / 1000)
