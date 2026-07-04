@@ -6,8 +6,7 @@ SS face with configurable swping second hand
 
 ## Tech Stack
 
-- Expo ps://github.com/pmndrs/zustand) — state management
-- [react-native-reanimated](https://docs.swmansion.com/react-native-reanimated/) — 60fps animations
+- Expo ps:ve-reanimated](https://docs.swmansion.com/react-native-reanimated/) — 60fps animations
 - [@shopify/react-native-skia](https://shopify.github.io/react-native-skia/) — analog clock and circular progress
 - [react-native-mmkv](https://github.com/mrousavy/react-native-mmkv) — encrypted local storage
 - [expo-notifications](https://docs.expo.dev/versions/latest/sdk/notifications/) — OS alarm scheduling
