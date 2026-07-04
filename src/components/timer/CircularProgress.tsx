@@ -33,7 +33,7 @@ function createProgressPath(progress: number) {
   const ex = CENTER + RADIUS * Math.cos(endAngle)
   const ey = CENTER + RADIUS * Math.sin(endAngle)
 
-  const largeArc = progress > 0.5 ? 1 : 0
+  const useSmallArc = progress <= 0.5
 
   p.moveTo(sx, sy)
   p.rArcTo(RADIUS, RADIUS, 0, largeArc, 1, ex - sx, ey - sy)
