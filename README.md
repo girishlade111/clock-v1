@@ -10,11 +10,8 @@ dsdsoject Sdsxz
 src/dsazx
 │ │ ├─tsx
 ├── components/ # Feature & UI components
-│ ├── alarm─ stopwatch.tsx
-│ │ ├── timer.tsx
-│ │ └── alarms.tsx
-│ └── index.s/ # AlarmCard, AlarmForm, RepeatSelector, AlarmCompletionOverlay
-│ ├── clock/ # DigitalClock, AnalogClock (Skia)
+│ ├── alarms/ # AlarmCard, AlarmForm, RepeatSelector, AlarmCompletionOverlay
+│ ├── clock/xz # DigitalClock, AnalogClock (Skia)
 │ ├── common/ # ThemeToggle, LoadingSpinner
 │ ├── stopwatch/ # StopwatchDisplay, StopwatchControls, LapList
 │ ├── timer/ # TimerDisplay, TimerControls, TimerPresets, CircularProgress (Skia)
