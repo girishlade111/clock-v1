@@ -7,7 +7,14 @@ sans](https://date-fns.org/) + date-fns-tz — timezone formatting
 ds-app
 npx expo ds # or run:android
 dsdsoject Sdsxz
-src/szock/ # DigitalClock, AnalogClock (Skia)
+src/dsazx
+│ │ ├─tsx
+├── components/ # Feature & UI components
+│ ├── alarm─ stopwatch.tsx
+│ │ ├── timer.tsx
+│ │ └── alarms.tsx
+│ └── index.s/ # AlarmCard, AlarmForm, RepeatSelector, AlarmCompletionOverlay
+│ ├── clock/ # DigitalClock, AnalogClock (Skia)
 │ ├── common/ # ThemeToggle, LoadingSpinner
 │ ├── stopwatch/ # StopwatchDisplay, StopwatchControls, LapList
 │ ├── timer/ # TimerDisplay, TimerControls, TimerPresets, CircularProgress (Skia)
