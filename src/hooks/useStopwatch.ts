@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useStopwatchStore } from '../stores/stopwatchStore'
 import { formatMilliseconds } from '../utils/format'
+import type { LapEntry } from '../types'
 
 interface StopwatchDisplay {
   displayTime: string
@@ -12,7 +13,7 @@ interface StopwatchDisplay {
   resume: () => void
   reset: () => void
   addLap: () => void
-  laps: ReturnType<typeof useStopwatchStore>['laps']
+  laps: LapEntry[]
   recalculateFromBackground: () => void
 }
 
