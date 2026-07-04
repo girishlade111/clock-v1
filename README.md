@@ -5,9 +5,7 @@ sans](https://date-fns.org/) + date-fns-tz — timezone formatting
 ## Getting Started
 
 ds-app
-npx expo install
-npx expo prebuild
-npx expo run:ios # or run:android
+npx expo ds # or run:android
 
 ```
 
