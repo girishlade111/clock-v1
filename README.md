@@ -4,7 +4,7 @@ A simple digital clock application built with React.
 fddffdsdsa
 the
 nyetrbgsvgg
-twhgaefd
+twhaefd
 thgerw
 fvscd
 gredcas
