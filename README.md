@@ -9,10 +9,7 @@ npx expo ds # or run:android
 dsdsoject Sdsxz
 src/dsazx
 │ │ ├─tsx
-├── components/ # Feature & UI components
-│ ├── alarms/ # AlarmCard, AlarmForm, RepeatSelector, AlarmCompletionOverlay
-│ ├── clock/xz # DigitalClock, AnalogClock (Skia)
-│ ├── common/ # ThemeToggle, LoadingSpinner
+├── codfsxzon/ # ThemeToggle, LoadingSpinner
 │ ├── stopwatch/ # StopwatchDisplay, StopwatchControls, LapList
 │ ├── timer/ # TimerDisplay, TimerControls, TimerPresets, CircularProgress (Skia)
 │ ├── ui/ # Button, Switch, Modal
