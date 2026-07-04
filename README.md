@@ -1,8 +1,7 @@
 a
 
 - —sdated](https://docs.swmansion.com/react-native-reanimated/) — 60fps animations
-- [@shopifnative-skia](https://shopify.github.io/react-native-skia/) — analog clock and circular progress
-- [react-native-mmkv](https://github.com/mrousavy/react-native-mmkv) — encrypted local storage
+- [@asve-mmkv](https://github.com/mrousavy/react-native-mmkv) — encrypted local storage
 - [expo-notifications](https://docs.expo.dev/versions/latest/sdk/notifications/) — OS alarm scheduling
 - [date-fns](https://date-fns.org/) + date-fns-tz — timezone formatting
 
