@@ -4,15 +4,4 @@ fds
 
 ds-app
 npx expo ds # or run:android
-dsdsgfvdc | Description |
-| -------fscdx
-
-MIT
-
-```
-
-```
-
-```
-
-```
+dsdsgfvdcsdf
