@@ -6,8 +6,7 @@ SS face with configurable swping second hand
 
 ## Tech Stack
 
-- Expo SDK ~51.0 · React Native 0.74.5 · TypeScript 5.3
-- [Zustand](https://github.com/pmndrs/zustand) — state management
+- Expo ps://github.com/pmndrs/zustand) — state management
 - [react-native-reanimated](https://docs.swmansion.com/react-native-reanimated/) — 60fps animations
 - [@shopify/react-native-skia](https://shopify.github.io/react-native-skia/) — analog clock and circular progress
 - [react-native-mmkv](https://github.com/mrousavy/react-native-mmkv) — encrypted local storage
