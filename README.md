@@ -6,9 +6,7 @@ sans](https://date-fns.org/) + date-fns-tz — timezone formatting
 
 ds-app
 npx expo ds # or run:android
-ds
-
-## Project Structure
+dsdsoject Structure
 
 ```
 
