@@ -4,42 +4,44 @@ sans](https://date-fns.org/) + date-fns-tz — timezone formatting
 
 ## Getting Started
 
-```bash
-git clone <repo-url> clock-app
+`ae <repo-url> clock-app
 cd clock-app
 npx expo install
 npx expo prebuild
-npx expo run:ios    # or run:android
+npx expo run:ios # or run:android
+
 ```
 
 ## Project Structure
 
 ```
+
 src/
-├── app/              # Expo Router screens (5 tabs)
-│   ├── _layout.tsx
-│   ├── (tabs)/
-│   │   ├── _layout.tsx
-│   │   ├── clock.tsx
-│   │   ├── world-clock.tsx
-│   │   ├── stopwatch.tsx
-│   │   ├── timer.tsx
-│   │   └── alarms.tsx
-│   └── index.tsx
-├── components/       # Feature & UI components
-│   ├── alarms/       # AlarmCard, AlarmForm, RepeatSelector, AlarmCompletionOverlay
-│   ├── clock/        # DigitalClock, AnalogClock (Skia)
-│   ├── common/       # ThemeToggle, LoadingSpinner
-│   ├── stopwatch/    # StopwatchDisplay, StopwatchControls, LapList
-│   ├── timer/        # TimerDisplay, TimerControls, TimerPresets, CircularProgress (Skia)
-│   ├── ui/           # Button, Switch, Modal
-│   └── world-clock/  # WorldClockCard, TimezoneSearch
-├── constants/        # Theme, timezones, presets, sounds
-├── hooks/            # useClock, useStopwatch, useTimer, useAlarms, useWorldClock, etc.
-├── services/         # Timekeeping, storage, notifications, audio, permissions, background tasks
-├── stores/           # Zustand stores (theme, clock, worldClock, stopwatch, timer, alarm)
-├── types/            # TypeScript definitions
-└── utils/            # Date, format, color, animation helpers
+├── app/ # Expo Router screens (5 tabs)
+│ ├── \_layout.tsx
+│ ├── (tabs)/
+│ │ ├── \_layout.tsx
+│ │ ├── clock.tsx
+│ │ ├── world-clock.tsx
+│ │ ├── stopwatch.tsx
+│ │ ├── timer.tsx
+│ │ └── alarms.tsx
+│ └── index.tsx
+├── components/ # Feature & UI components
+│ ├── alarms/ # AlarmCard, AlarmForm, RepeatSelector, AlarmCompletionOverlay
+│ ├── clock/ # DigitalClock, AnalogClock (Skia)
+│ ├── common/ # ThemeToggle, LoadingSpinner
+│ ├── stopwatch/ # StopwatchDisplay, StopwatchControls, LapList
+│ ├── timer/ # TimerDisplay, TimerControls, TimerPresets, CircularProgress (Skia)
+│ ├── ui/ # Button, Switch, Modal
+│ └── world-clock/ # WorldClockCard, TimezoneSearch
+├── constants/ # Theme, timezones, presets, sounds
+├── hooks/ # useClock, useStopwatch, useTimer, useAlarms, useWorldClock, etc.
+├── services/ # Timekeeping, storage, notifications, audio, permissions, background tasks
+├── stores/ # Zustand stores (theme, clock, worldClock, stopwatch, timer, alarm)
+├── types/ # TypeScript definitions
+└── utils/ # Date, format, color, animation helpers
+
 ```
 
 ## Asset Requirements
@@ -60,3 +62,4 @@ Place these files before building:
 ## License
 
 MIT
+```
