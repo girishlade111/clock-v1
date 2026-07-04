@@ -7,13 +7,7 @@ sans](https://date-fns.org/) + date-fns-tz — timezone formatting
 ds-app
 npx expo ds # or run:android
 dsdsoject Sdsxz
-src/
-├── app/ # Expo Router screens (5 tabs)
-│ ├── \_layout.tsx
-│ ├── (tabs)/
-│ │ ├── \_layout.tsx
-│ │ ├── clock.tsx
-│ │ ├── world-clock.tsx
+src/dsazx
 │ │ ├── stopwatch.tsx
 │ │ ├── timer.tsx
 │ │ └── alarms.tsx
