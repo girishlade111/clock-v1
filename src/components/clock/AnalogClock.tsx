@@ -1,5 +1,5 @@
 import { View, StyleSheet } from 'react-native'
-import { Canvas, Circle, Line, Group, runTiming, useValue } from '@shopify/react-native-skia'
+import { Canvas, Circle, Line, Group } from '@shopify/react-native-skia'
 import { useEffect } from 'react'
 import { useTheme } from '../../hooks/useTheme'
 import { useClockStore } from '../../stores/clockStore'
