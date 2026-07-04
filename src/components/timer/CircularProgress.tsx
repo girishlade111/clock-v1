@@ -36,7 +36,7 @@ function createProgressPath(progress: number) {
   const useSmallArc = progress <= 0.5
 
   p.moveTo(sx, sy)
-  p.rArcTo(RADIUS, RADIUS, 0, useSmallArc, true, ex - sx, ey - sy)
+  p.rArcTo(RADIUS, RADIUS, 0, useSmallArc, false, ex - sx, ey - sy)
   return p
 }
 
