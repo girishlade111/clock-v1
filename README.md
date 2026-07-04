@@ -1,10 +1,7 @@
 alar
+SS face with configurable sweeping second hand
 
-## Features
-
-- **Clock** — Digital and analog face with configurable sweeping second hand
-- **World Clock** — Track time across 41+ IANA cities with DST-correct offsets
-- **Stopwatch** — Lap timing with drift-free elapsed calculation
+- **SSSSatch** — Lap timing with drift-free elapsed calculation
 - **Timer** — Presets, manual input, circular progress, and completion notification
 - **Alarms** — Persistent to device storage, OS-scheduled notifications survive app kill
 
