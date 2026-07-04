@@ -1,9 +1,9 @@
-import { Audio } from 'expo-av'
+import { createAudioPlayer, setAudioModeAsync } from 'expo-audio'
 import * as Haptics from 'expo-haptics'
 import { Platform } from 'react-native'
 
-let alarmSound: Audio.Sound | null = null
-let timerSound: Audio.Sound | null = null
+let alarmSound: ReturnType<typeof createAudioPlayer> | null = null
+let timerSound: ReturnType<typeof createAudioPlayer> | null = null
 let isPlaying = false
 
 function loadSoundSource(key: string): any {
@@ -30,11 +30,10 @@ function loadTimerSoundSource(): any {
 
 export async function configureAudio() {
   try {
-    await Audio.setAudioModeAsync({
-      playsInSilentModeIOS: true,
-      staysActiveInBackground: true,
-      shouldDuckAndroid: true,
-      playThroughEarpieceAndroid: false,
+    await setAudioModeAsync({
+      playsInSilentMode: true,
+      shouldPlayInBackground: true,
+      interruptionMode: 'duckOthers',
     })
   } catch (e) {
     console.warn('Audio config error:', e)
@@ -52,15 +51,12 @@ export async function playAlarmSound(soundKey: string = 'default'): Promise<void
       return
     }
     if (alarmSound) {
-      await alarmSound.unloadAsync()
+      alarmSound.remove()
     }
-    alarmSound = new Audio.Sound()
-    await alarmSound.loadAsync(source, {
-      shouldPlay: true,
-      isLooping: true,
-      volume: 1.0,
-    })
-    await alarmSound.playAsync()
+    alarmSound = createAudioPlayer(source)
+    alarmSound.loop = true
+    alarmSound.volume = 1.0
+    alarmSound.play()
   } catch (e) {
     console.warn('Alarm sound error:', e)
   }
@@ -69,8 +65,7 @@ export async function playAlarmSound(soundKey: string = 'default'): Promise<void
 export async function stopAlarmSound(): Promise<void> {
   try {
     if (alarmSound) {
-      await alarmSound.stopAsync()
-      await alarmSound.unloadAsync()
+      alarmSound.remove()
       alarmSound = null
     }
   } catch (e) {
@@ -87,15 +82,12 @@ export async function playTimerCompleteSound(): Promise<void> {
       return
     }
     if (timerSound) {
-      await timerSound.unloadAsync()
+      timerSound.remove()
     }
-    timerSound = new Audio.Sound()
-    await timerSound.loadAsync(source, {
-      shouldPlay: true,
-      isLooping: false,
-      volume: 1.0,
-    })
-    await timerSound.playAsync()
+    timerSound = createAudioPlayer(source)
+    timerSound.loop = false
+    timerSound.volume = 1.0
+    timerSound.play()
   } catch (e) {
     console.warn('Timer sound error:', e)
   }
@@ -104,8 +96,7 @@ export async function playTimerCompleteSound(): Promise<void> {
 export async function stopTimerSound(): Promise<void> {
   try {
     if (timerSound) {
-      await timerSound.stopAsync()
-      await timerSound.unloadAsync()
+      timerSound.remove()
       timerSound = null
     }
   } catch (e) {
