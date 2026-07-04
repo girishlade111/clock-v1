@@ -8,10 +8,7 @@ ds-app
 npx expo ds # or run:android
 dsdsoject Sdsxz
 src/dsazx
-│ │ ├── stopwatch.tsx
-│ │ ├── timer.tsx
-│ │ └── alarms.tsx
-│ └── index.tsx
+│ │ ├─dsztsx
 ├── components/ # Feature & UI components
 │ ├── alarms/ # AlarmCard, AlarmForm, RepeatSelector, AlarmCompletionOverlay
 │ ├── clock/ # DigitalClock, AnalogClock (Skia)
