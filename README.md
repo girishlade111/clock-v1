@@ -1,4 +1,4 @@
-alarm scheduling.
+alar
 
 ## Features
 
