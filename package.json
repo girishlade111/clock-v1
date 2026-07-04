@@ -12,38 +12,36 @@
     "test": "jest"
   },
   "dependencies": {
-    "expo": "~51.0.0",
-    "expo-router": "~3.5.0",
-    "expo-notifications": "~0.28.0",
-    "expo-device": "~6.0.0",
-    "expo-constants": "~16.0.0",
-    "expo-background-fetch": "~11.8.0",
-    "expo-task-manager": "~11.8.0",
-    "expo-audio": "~0.3.0",
-    "expo-haptics": "~12.10.0",
-    "expo-localization": "~15.0.0",
-    "expo-screen-orientation": "~7.0.0",
-    "expo-system-ui": "~3.0.0",
-    "react": "18.2.0",
-    "react-native": "0.74.5",
-    "react-native-gesture-handler": "~2.16.0",
-    "react-native-reanimated": "~3.10.0",
-    "@shopify/react-native-skia": "~0.1.220",
-    "react-native-mmkv": "~2.12.0",
-    "react-native-safe-area-context": "4.10.5",
-    "react-native-screens": "~3.31.0",
-    "zustand": "^4.5.0",
-    "date-fns": "^3.6.0",
-    "date-fns-tz": "^3.0.0",
-    "intl-tzdb": "^1.0.0"
+    "expo": "~56.0.0",
+    "expo-router": "~4.0.0",
+    "expo-notifications": "~0.29.0",
+    "expo-device": "~7.0.0",
+    "expo-constants": "~17.0.0",
+    "expo-background-fetch": "~14.0.0",
+    "expo-task-manager": "~13.0.0",
+    "expo-audio": "~0.5.0",
+    "expo-haptics": "~14.0.0",
+    "expo-localization": "~16.0.0",
+    "expo-screen-orientation": "~8.0.0",
+    "expo-system-ui": "~4.0.0",
+    "react": "18.3.1",
+    "react-native": "0.76.7",
+    "react-native-gesture-handler": "~2.20.0",
+    "react-native-reanimated": "~3.16.0",
+    "@shopify/react-native-skia": "~1.5.0",
+    "react-native-mmkv": "~3.2.0",
+    "react-native-safe-area-context": "~5.0.0",
+    "react-native-screens": "~4.4.0",
+    "zustand": "^5.0.0",
+    "date-fns": "^4.0.0",
+    "date-fns-tz": "^3.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.0",
-    "@types/react": "~18.2.45",
-    "@types/react-native": "~0.73.0",
-    "typescript": "~5.3.3",
-    "eslint": "^8.57.0",
-    "eslint-config-expo": "~7.0.0",
+    "@babel/core": "^7.25.0",
+    "@types/react": "~18.3.0",
+    "typescript": "~5.6.0",
+    "eslint": "^9.0.0",
+    "eslint-config-expo": "~8.0.0",
     "jest": "^29.7.0",
     "@testing-library/react-native": "^12.4.0"
   },
@@ -63,12 +61,18 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.clockapp.app",
       "infoPlist": {
-        "UIBackgroundModes": ["audio", "background-fetch", "remote-notification"],
+        "UIBackgroundModes": [
+          "audio",
+          "background-fetch",
+          "remote-notification"
+        ],
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true
         }
@@ -104,8 +108,8 @@
             "useFrameworks": "static"
           },
           "android": {
-            "compileSdkVersion": 34,
-            "targetSdkVersion": 34,
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
             "minSdkVersion": 24
           }
         }
@@ -113,7 +117,9 @@
       [
         "expo-localization",
         {
-          "skipLocales": ["all"]
+          "skipLocales": [
+            "all"
+          ]
         }
       ]
     ],
