@@ -4,19 +4,7 @@ fds
 
 ds-app
 npx expo ds # or run:android
-dsdsoject Sdsxz
-src/dsazx
-│ │ ├─tsx
-├── codfsxzon/ # ThemeToggle, LoadingSpinner
-│ ├── stopwatch/ # StopwatchDisplay, StopwatchControls, LapList
-│ ├── timer/ # TimerDisplay, TimerControls, TimerPresets, CircularProgress (Skia)
-│ ├── ui/ # Button, Switch, Modal
-│ └── world-clock/ # WorldClockCard, TimezoneSearch
-├── constants/ # Theme, timezones, presets, sounds
-├── hooks/ # useClock, useStopwatch, useTimer, useAlarms, useWorldClock, etc.
-├── services/ # Timekeeping, storage, notifications, audio, permissions, background tasks
-├── stores/ # Zustand stores (theme, clock, worldClock, stopwatch, timer, alarm)
-├── types/ # TypeScript definitions
+dsdsoject SdsxzfdcxypeScript definitions
 └── utils/ # Date, format, color, animation helpers
 
 ```
