@@ -1,9 +1,6 @@
 a
 
-- —
-  Persistent to device storage, OS-scheduled notifications survive app kill
-
-- Expo ps:ve-reanimated](https://docs.swmansion.com/react-native-reanimated/) — 60fps animations
+- —sdated](https://docs.swmansion.com/react-native-reanimated/) — 60fps animations
 - [@shopifnative-skia](https://shopify.github.io/react-native-skia/) — analog clock and circular progress
 - [react-native-mmkv](https://github.com/mrousavy/react-native-mmkv) — encrypted local storage
 - [expo-notifications](https://docs.expo.dev/versions/latest/sdk/notifications/) — OS alarm scheduling
