@@ -53,6 +53,8 @@ export interface Alarm {
 
 export type RepeatType = 'once' | 'daily' | 'weekdays' | 'weekends' | 'custom'
 
+export type AlarmSoundKey = 'default' | 'gentle' | 'marimba' | 'bell'
+
 export interface AlarmState {
   alarms: Alarm[]
   firingAlarmId: string | null
