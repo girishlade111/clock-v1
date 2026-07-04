@@ -4,8 +4,7 @@ sans](https://date-fns.org/) + date-fns-tz — timezone formatting
 
 ## Getting Started
 
-`ae <repo-url> clock-app
-cd clock-app
+ds-app
 npx expo install
 npx expo prebuild
 npx expo run:ios # or run:android
