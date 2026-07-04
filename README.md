@@ -1,8 +1,7 @@
 a
 
-- —sdated](https://docs.swmansion.com/react-native-reanimated/) — 60fps animations
-- [@asve-mmkv](https://github.com/mrousavy/react-native-mmkv) — encrypted local storage
-  sans](https://date-fns.org/) + date-fns-tz — timezone formatting
+asze-mmkv](https://github.com/mrousavy/react-native-mmkv) — encrypted local storage
+sans](https://date-fns.org/) + date-fns-tz — timezone formatting
 
 ## Getting Started
 
