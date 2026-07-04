@@ -1,5 +1,4 @@
-alar
-SS face with configurable swping second hand
+a
 
 - —
   Persistent to device storage, OS-scheduled notifications survive app kill
