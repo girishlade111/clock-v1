@@ -1,9 +1,10 @@
 alar
 SS face with configurable sweeping second hand
 
-- **SSSSatch** — Lap timing with drift-free elapsed calculation
-- **Timer** — Presets, manual input, circular progress, and completion notification
-- **Alarms** — Persistent to device storage, OS-scheduled notifications survive app kill
+- — Lap timing with drift-free elapsed calculation
+
+* **Timer** — Presets, manual input, circular progress, and completion notification
+* **Alarms** — Persistent to device storage, OS-scheduled notifications survive app kill
 
 ## Tech Stack
 
