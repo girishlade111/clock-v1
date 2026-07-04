@@ -1,6 +1,6 @@
 # Clock App
 
-A productn-ready React Native clock app built with Expo SDK 51. Includes digital/analog clock, world clock, stopwatch, timer, and alarms modules. Designed for drift-free timekeeping and OS-level alarm scheduling.
+A prodact Native clock app built with Expo SDK 51. Includes digital/analog clock, world clock, stopwatch, timer, and alarms modules. Designed for drift-free timekeeping and OS-level alarm scheduling.
 
 ## Features
 
