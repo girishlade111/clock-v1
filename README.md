@@ -1,4 +1,4 @@
-h Expo SDK 51. Includes digital/analog clock, world clock, stopwatch, timer, and alarms modules. Designed for drift-free timekeeping and OS-level alarm scheduling.
+alarm scheduling.
 
 ## Features
 
