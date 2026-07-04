@@ -6,10 +6,7 @@ sans](https://date-fns.org/) + date-fns-tz — timezone formatting
 
 ds-app
 npx expo ds # or run:android
-dsdsoject Structure
-
-```
-
+dsdsoject Sdsxz
 src/
 ├── app/ # Expo Router screens (5 tabs)
 │ ├── \_layout.tsx
@@ -56,6 +53,8 @@ Place these files before building:
 ## License
 
 MIT
+
+```
 
 ```
 
