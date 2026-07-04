@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": ["dom", "esnext"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "jsx": "react-jsx",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -15,10 +18,23 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ]
     },
-    "types": ["react-native", "jest"]
+    "types": [
+      "react-native",
+      "jest"
+    ]
   },
-  "include": ["src/**/*", "app.d.ts"],
-  "exclude": ["node_modules", "babel.config.js", "metro.config.js"]
+  "include": [
+    "src/**/*",
+    "app.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js"
+  ],
+  "extends": "expo/tsconfig.base"
 }
