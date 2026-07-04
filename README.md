@@ -1,5 +1,5 @@
 alar
-SS face with configurable sweeping second hand
+SS face with configurable swping second hand
 
 - —
 
