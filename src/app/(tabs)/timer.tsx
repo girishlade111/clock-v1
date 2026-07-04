@@ -51,7 +51,7 @@ export default function TimerScreen() {
     }
   }
 
-  const showInputs = timer.status === 'idle'
+  const showInputs = !timer.isRunning && !timer.isPaused && !timer.isCompleted
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top']}>
