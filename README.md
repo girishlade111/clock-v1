@@ -1,6 +1,6 @@
 # Clock App
 
-A production-ready React Native clock app built with Expo SDK 51. Includes digital/analog clock, world clock, stopwatch, timer, and alarms modules. Designed for drift-free timekeeping and OS-level alarm scheduling.
+A productn-ready React Native clock app built with Expo SDK 51. Includes digital/analog clock, world clock, stopwatch, timer, and alarms modules. Designed for drift-free timekeeping and OS-level alarm scheduling.
 
 ## Features
 
@@ -64,15 +64,15 @@ src/
 
 Place these files before building:
 
-| Path | Description |
-|------|-------------|
-| `assets/images/icon.png` | App icon (1024×1024) |
-| `assets/images/splash.png` | Splash screen |
-| `assets/images/adaptive-icon.png` | Android adaptive icon |
-| `assets/sounds/alarm-default.mp3` | Default alarm ringtone |
-| `assets/sounds/alarm-gentle.mp3` | Gentle alarm ringtone |
-| `assets/sounds/alarm-marimba.mp3` | Marimba alarm ringtone |
-| `assets/sounds/alarm-bell.mp3` | Bell alarm ringtone |
+| Path                               | Description            |
+| ---------------------------------- | ---------------------- |
+| `assets/images/icon.png`           | App icon (1024×1024)   |
+| `assets/images/splash.png`         | Splash screen          |
+| `assets/images/adaptive-icon.png`  | Android adaptive icon  |
+| `assets/sounds/alarm-default.mp3`  | Default alarm ringtone |
+| `assets/sounds/alarm-gentle.mp3`   | Gentle alarm ringtone  |
+| `assets/sounds/alarm-marimba.mp3`  | Marimba alarm ringtone |
+| `assets/sounds/alarm-bell.mp3`     | Bell alarm ringtone    |
 | `assets/sounds/timer-complete.mp3` | Timer completion sound |
 
 ## License
